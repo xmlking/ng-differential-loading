@@ -17,6 +17,15 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "mylib": [
+        "dist/mylib"
+      ],
+      "mylib/*": [
+        "dist/mylib/*"
+      ],
+      "@ngx-starter-kit/mylib": ["projects/mylib/src/public-api.ts"]
+    }
   }
 }
