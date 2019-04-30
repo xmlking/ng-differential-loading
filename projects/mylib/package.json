@@ -4,5 +4,9 @@
   "peerDependencies": {
     "@angular/common": "^8.0.0-beta.14",
     "@angular/core": "^8.0.0-beta.14"
+  },
+  "dependencies": {
+    "@ngxs-labs/immer-adapter": "^3.0.3",
+    "immer": "^3.1.1"
   }
 }

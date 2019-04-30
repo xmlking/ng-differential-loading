@@ -1,17 +1,83 @@
-import { State, Action } from '@ngxs/store';
+import {State, Action, Selector, StateContext, NgxsAfterBootstrap} from '@ngxs/store';
+import { ImmutableContext, ImmutableSelector } from '@ngxs-labs/immer-adapter';
 
-export class Add {
-  static readonly type = 'Add';
+export class AddOnline {
+  static readonly type = 'AddOnline';
 }
 
-@State<number>({
+export class AddOffline {
+  static readonly type = 'AddOffline';
+}
+
+export class RemoveOnline {
+  static readonly type = 'RemoveOnline';
+}
+
+export class RemoveOffline {
+  static readonly type = 'RemoveOffline';
+}
+
+export interface CountStateModel {
+  online: number;
+  offline: number;
+}
+
+@State<CountStateModel>({
   name: 'count',
-  defaults: 0
+  defaults: {
+    online: 0,
+    offline: 0
+  }
 })
-export class CountState {
-  @Action(Add)
-  add({ getState, setState }) {
-    const state = getState();
-    setState(state + 1);
+export class CountState implements NgxsAfterBootstrap {
+
+  @Selector()
+  static getOnline(state: CountStateModel) {
+    return state.online;
+  }
+
+  @Selector()
+  static getOffline(state: CountStateModel) {
+    return state.offline;
+  }
+
+  ngxsAfterBootstrap(ctx: StateContext<CountStateModel>) {
+    console.log('Count State initialized');
+  }
+
+  @ImmutableContext()
+  @Action(AddOnline)
+  addOnline(ctx: StateContext<CountStateModel>) {
+    ctx.setState((state: CountStateModel) => {
+      state.online++;
+      return state;
+    });
+  }
+
+  @ImmutableContext()
+  @Action(AddOffline)
+  addOffline(ctx: StateContext<CountStateModel>) {
+    ctx.setState((state: CountStateModel) => {
+      state.offline++;
+      return state;
+    });
+  }
+
+  @ImmutableContext()
+  @Action(RemoveOnline)
+  removeOnline(ctx: StateContext<CountStateModel>) {
+    ctx.setState((state: CountStateModel) => {
+      state.online--;
+      return state;
+    });
+  }
+
+  @ImmutableContext()
+  @Action(RemoveOffline)
+  removeOffline(ctx: StateContext<CountStateModel>) {
+    ctx.setState((state: CountStateModel) => {
+      state.offline--;
+      return state;
+    });
   }
 }
