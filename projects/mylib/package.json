@@ -2,11 +2,11 @@
   "name": "mylib",
   "version": "0.0.1",
   "peerDependencies": {
-    "@angular/common": "^8.0.0-beta.14",
-    "@angular/core": "^8.0.0-beta.14"
+    "@angular/common": "~8.0.0-rc.4",
+    "@angular/core": "~8.0.0-rc.4"
   },
   "dependencies": {
     "@ngxs-labs/immer-adapter": "^3.0.3",
-    "immer": "^3.1.1"
+    "immer": "^3.1.2"
   }
 }
